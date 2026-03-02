@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI简报 - 2026年3月2日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f7f8fa;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding-bottom: 20px;
+        }
+
+        /* 顶部导航 */
+        .header {
+            background: #fff;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .date-tag {
+            font-size: 13px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 14px;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px 20px;
+        }
+
+        /* 音频播放器 - 置顶 */
+        .audio-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .audio-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .audio-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .audio-title {
+            flex: 1;
+        }
+
+        .audio-title h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .audio-title p {
+            font-size: 13px;
+            color: #999;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+            border-radius: 6px;
+        }
+
+        .audio-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .audio-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .audio-btn.primary {
+            background: #667eea;
+            color: #fff;
+        }
+
+        .audio-btn.secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .audio-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* 领域标签 */
+        .category-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .category-tab {
+            padding: 8px 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .category-tab.active {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        /* 新闻列表 */
+        .news-section {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .section-count {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .news-item {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .news-item:hover {
+            background: #fafafa;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .news-tag {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .news-tag.hot {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .news-tag.funding {
+            background: #e8f5e9;
+            color: #43a047;
+        }
+
+        .news-summary {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .news-insight {
+            background: #f8f9fa;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #555;
+            border-left: 3px solid #667eea;
+        }
+
+        .news-insight strong {
+            color: #667eea;
+        }
+
+        /* 来源链接 */
+        .source-link {
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+
+        .source-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #666;
+            font-size: 11px;
+            padding: 4px 16px;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .header-content {
+                padding: 0;
+            }
+
+            .audio-section {
+                padding: 16px;
+            }
+
+            .news-item {
+                padding: 16px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .news-title {
+                font-size: 15px;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">AI简报</div>
+            <div class="date-tag">2026年3月2日</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 音频播放器 - 置顶 -->
+        <div class="audio-section">
+            <div class="audio-header">
+                <div class="audio-icon">🎙️</div>
+                <div class="audio-title">
+                    <h3>AI简报</h3>
+                    <p>新能源汽车 + 人工智能</p>
+                </div>
+            </div>
+            <audio id="main-audio" controls preload="auto">
+                <source src="podcasts/ai_brief_20260302.mp3" type="audio/mpeg">
+                您的浏览器不支持音频播放。
+            </audio>
+            <div class="audio-actions">
+                <a href="podcasts/ai_brief_20260302.mp3" download="AI简报_20260302.mp3" class="audio-btn primary">
+                    ⬇️ 下载音频
+                </a>
+                <button onclick="document.getElementById('main-audio').play()" class="audio-btn secondary">
+                    ▶️ 播放
+                </button>
+            </div>
+        </div>
+
+        <!-- 新能源汽车板块 -->
+        <div id="ev-section">
+            <!-- 今日速览 -->
+            <div class="news-section">
+                <div class="section-header">
+                    <div class="section-title">今日速览</div>
+                    <div class="section-count">3条</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">2026年3月新能源车年检新规正式实施：电池衰减超30%不合格</div>
+                    <div class="news-meta">
+                        <span class="news-tag hot">重磅</span>
+                        <span class="news-tag">政策</span>
+                        <span>3月1日生效</span>
+                    </div>
+                    <div class="news-summary">
+                        新能源汽车专属年检规定正式落地，三电系统成为必检项目。这是摆脱燃油车检测模式、量身定制的新能源检测标准。
+                    </div>
+                    <div class="news-insight">
+                        <strong>影响：</strong>电池健康度成为年检硬指标，车主需更加重视电池保养，二手车市场电池评估将更规范。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://m.yoojia.com/article/10297395370205740351.html" target="_blank">有驾</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">汽车补贴新政落地：新能源最高补2万元</div>
+                    <div class="news-meta">
+                        <span class="news-tag funding">补贴</span>
+                        <span class="news-tag">以旧换新</span>
+                        <span>全国实施</span>
+                    </div>
+                    <div class="news-summary">
+                        报废旧车购买新能源车最高补贴2万元，置换新能源车型最高补贴1.5万元。多地推出"以旧换新"政策刺激消费。
+                    </div>
+                    <div class="news-insight">
+                        <strong>判断：</strong>补贴政策升级表明政府继续支持新能源消费，但"全额免征购置税"时代已结束，市场从政策驱动向产品驱动转变。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://baijiahao.baidu.com/s?id=1858428309939986927" target="_blank">百家号</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">3月新车潮来袭：至少10款新能源车排队上市</div>
+                    <div class="news-meta">
+                        <span class="news-tag">新车</span>
+                        <span>奇瑞iCAR V27</span>
+                        <span>问界M6</span>
+                    </div>
+                    <div class="news-summary">
+                        奇瑞iCAR V27（越野）、零跑A10（10万级）、昊铂A800（35万级高端）、问界M6（鸿蒙智行）等重磅车型集中发布。
+                    </div>
+                    <div class="news-insight">
+                        <strong>趋势：</strong>产品覆盖从亲民代步到高端商务全场景，新能源市场竞争进入"价值深耕"新阶段。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://chejiahao.m.autohome.com.cn/info/24875277" target="_blank">车家号</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 市场数据 -->
+            <div class="news-section">
+                <div class="section-header">
+                    <div class="section-title">市场数据</div>
+                    <div class="section-count">2条</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">2月新能源车销量成绩单：比亚迪19.02万辆领跑</div>
+                    <div class="news-meta">
+                        <span class="news-tag">销量</span>
+                        <span>比亚迪</span>
+                        <span>小米汽车</span>
+                    </div>
+                    <div class="news-summary">
+                        比亚迪19.02万辆、小米汽车超2万辆、理想汽车约2.6万台。零跑、蔚来、理想均实现同比增长。
+                    </div>
+                    <div class="news-insight">
+                        <strong>观察：</strong>小米汽车交付量突破2万辆标志着新玩家站稳脚跟，头部效应加剧。
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">招银国际：首两月新能源车销售弱于预期</div>
+                    <div class="news-meta">
+                        <span class="news-tag">机构观点</span>
+                        <span>招银国际</span>
+                    </div>
+                    <div class="news-summary">
+                        预计3月开始市场份额反弹。理想、蔚来符合预期，小鹏不及预期。
+                    </div>
+                    <div class="news-insight">
+                        <strong>观点：</strong>短期压力不改长期趋势，3月新车潮和降价潮将刺激需求回暖。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 政策动态 -->
+            <div class="news-section">
+                <div class="section-header">
+                    <div class="section-title">政策动态</div>
+                    <div class="section-count">2条</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">充电电价市场化改革：3月1日起九省市试点</div>
+                    <div class="news-meta">
+                        <span class="news-tag hot">政策</span>
+                        <span>充电</span>
+                        <span>重庆、辽宁等</span>
+                    </div>
+                    <div class="news-summary">
+                        取消政府核定固定分时电价，转向市场化浮动定价。公共充电桩电价随电力市场供需实时浮动。
+                    </div>
+                    <div class="news-insight">
+                        <strong>影响：</strong>充电成本将更灵活，高峰期充电可能涨价，用户需优化充电时间。家用电价不受影响。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://m.yoojia.com/article/9614734331591366978.html" target="_blank">有驾</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">辟谣：10省市试点开征新能源汽车里程税消息不实</div>
+                    <div class="news-meta">
+                        <span class="news-tag">辟谣</span>
+                        <span>税务部门</span>
+                    </div>
+                    <div class="news-summary">
+                        网传"10省市自2026年1月1日起试点开征新能源汽车里程税"为虚假消息。重庆、四川等多地税务部门表示未收到相关通知。
+                    </div>
+                    <div class="news-insight">
+                        <strong>判断：</strong>里程税传闻不实，政府继续支持新能源发展，但补贴方式从"普惠"转向"精准"。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人工智能板块 -->
+        <div id="ai-section">
+            <!-- 今日速览 -->
+            <div class="news-section">
+                <div class="section-header">
+                    <div class="section-title">今日速览</div>
+                    <div class="section-count">3条</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">英伟达3月15日发布"世界前所未见"的革命性AI芯片</div>
+                    <div class="news-meta">
+                        <span class="news-tag hot">重磅</span>
+                        <span class="news-tag">产品</span>
+                        <span>GTC 2026</span>
+                    </div>
+                    <div class="news-summary">
+                        黄仁勋将在GTC 2026大会上发布整合Groq技术的全新AI芯片，针对GPU推理任务效率问题提供突破性解决方案。
+                    </div>
+                    <div class="news-insight">
+                        <strong>影响：</strong>这可能是Rubin CPX或Feynman革命性架构，在SRAM集成、3D堆叠、近存计算、能效比上将实现跨代跃升，被视为2026年科技股的重要催化剂。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://new.qq.com/rain/a/20260219A038MT00" target="_blank">腾讯新闻</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">苹果2026年3月推出新一代Siri：深度整合Google Gemini</div>
+                    <div class="news-meta">
+                        <span class="news-tag hot">重磅</span>
+                        <span class="news-tag">产品</span>
+                        <span>Apple</span>
+                    </div>
+                    <div class="news-summary">
+                        苹果计划在2026年3月同时推出新一代Siri助手和自研AI搜索产品（内部称"问答引擎"）。Gemini模型将在苹果私有云环境中运行。
+                    </div>
+                    <div class="news-insight">
+                        <strong>策略转变：</strong>苹果选择在私有云环境中运行外部模型，保持界面风格的同时整合顶尖AI能力。这种"混合策略"可能成为硬件厂商的新范式。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://ishare.ifeng.com/c/s/v002caenLyEbsNu1IE01wVrBrt0SJP7rVx8ubx-_eJBnn9us__" target="_blank">凤凰网</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">AI融资进入寡头时代：前7周17家公司融资540亿美元</div>
+                    <div class="news-meta">
+                        <span class="news-tag funding">融资</span>
+                        <span class="news-tag">趋势</span>
+                        <span>2026年Q1</span>
+                    </div>
+                    <div class="news-summary">
+                        2026年前7周，17家美国AI公司完成单笔1亿美元以上融资，合计吸金540亿美元。Anthropic完成300亿美元G轮，估值3800亿美元。
+                    </div>
+                    <div class="news-insight">
+                        <strong>市场警示：</strong>"赢家通吃"格局已形成——训练顶级模型成本超1亿美元，顶尖AI研究员年薪超500万美元，小玩家的入场壁垒已变得不可逾越。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://www.linkedin.com/posts/ryan-jones-037bb8111_ai-funding-in-2026-isnt-cooling-off-17-activity-7430271621187268608-A7zi" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 大佬观点 -->
+            <div class="news-section">
+                <div class="section-header">
+                    <div class="section-title">大佬观点</div>
+                    <div class="section-count">2条</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">黄仁勋：AI芯片技术逼近物理极限，需要架构革命</div>
+                    <div class="news-meta">
+                        <span class="news-tag">英伟达CEO</span>
+                        <span>技术判断</span>
+                    </div>
+                    <div class="news-summary">
+                        "3月发布的芯片是世界前所未见的，我们正在接近技术极限，需要全新的架构思路。"通过整合Groq的LPU技术，在推理效率上实现数量级提升。
+                    </div>
+                    <div class="news-insight">
+                        <strong>行业影响：</strong>这标志着AI硬件从"暴力计算"向"智能推理"的范式转移，专用的推理芯片可能成为新的主流。
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">2026 AI年度展望：十条核心趋势判断</div>
+                    <div class="news-meta">
+                        <span class="news-tag">行业共识</span>
+                        <span>智能涌现</span>
+                    </div>
+                    <div class="news-summary">
+                        字节跳动追击AI第一梯队；豆包早期确认多模态为核心能力；AI入口的最佳形态尚未确定；2026年将是AI商业化落地的关键年。
+                    </div>
+                    <div class="news-insight">
+                        <strong>核心判断：</strong>从"技术秀肌肉"转向"场景深扎根"，有真实商业价值的公司将脱颖而出。
+                    </div>
+                    <div class="source-link">
+                        来源：<a href="https://m.163.com/dy/article/KL6PDAG105568W0A.html" target="_blank">网易新闻</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 投融资 -->
+            <div class="news-section">
+                <div class="section-header">
+                    <div class="section-title">投融资</div>
+                    <div class="section-count">2条</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">Anthropic拟筹资250亿美元：AI史上最大融资</div>
+                    <div class="news-meta">
+                        <span class="news-tag funding">巨额融资</span>
+                        <span>大模型</span>
+                    </div>
+                    <div class="news-summary">
+                        目标金额250亿美元或更多，当前估值约3800亿美元，年收入超25亿美元（自2026年初已翻倍）。
+                    </div>
+                    <div class="news-insight">
+                        <strong>行业影响：</strong>如果融资完成，将是AI史上最大单笔融资，进一步加剧"寡头化"趋势。顶级VC如Sequoia、General Atlantic正在积极布局。
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-title">2026年1月：9家新AI独角兽诞生</div>
+                    <div class="news-meta">
+                        <span class="news-tag funding">独角兽</span>
+                        <span>美国市场</span>
+                    </div>
+                    <div class="news-summary">
+                        9家新独角兽（8家在美国），总估值224亿美元，融资总额近30亿美元。多数处于种子轮或A轮，但融资金额空前。
+                    </div>
+                    <div class="news-insight">
+                        <strong>地域分布：</strong>硅谷仍是创新核心，中国2026年1月前10大交易约100亿人民币，但尚未诞生新独角兽。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面已简化，移除切换功能
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.aiBrief.loginUpdate</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/baoying/Desktop/AI简报/offline-solution.py</string>
+    </array>
+
+    <!-- 登录时运行 -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- 每30分钟检查一次 -->
+    <key>StartInterval</key>
+    <integer>1800</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/baoying/Desktop/AI简报/logs/update.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/baoying/Desktop/AI简报/logs/error.log</string>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/baoying/Desktop/AI简报</string>
+</dict>
+</plist>

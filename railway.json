@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "python railway-cron.py",
+    "healthcheckPath": "/health"
+  }
+}
