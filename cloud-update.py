@@ -7,9 +7,11 @@ AI简报云端自动更新脚本
 import asyncio
 import os
 import re
-from datetime import datetime
+import requests
+from datetime import datetime, timedelta
 from pathlib import Path
 from edge_tts import Communicate
+from bs4 import BeautifulSoup
 
 
 class CloudAIBriefUpdater:
@@ -33,6 +35,161 @@ class CloudAIBriefUpdater:
         # 强制刷新输出（GitHub Actions需要）
         import sys
         sys.stdout.flush()
+
+    def fetch_readhub_news(self):
+        """从 Readhub API 获取当天新闻"""
+        self.log("🔍 开始从 Readhub 获取最新资讯...")
+
+        try:
+            # Readhub API
+            url = "https://api.readhub.cn/topic/list"
+
+            # 设置请求头，模拟浏览器
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+
+            response = requests.get(url, headers=headers, timeout=30)
+
+            if response.status_code != 200:
+                self.log(f"⚠️  Readhub API 请求失败: {response.status_code}")
+                return None
+
+            data = response.json()
+
+            # 提取新闻列表
+            news_items = []
+            items = data.get('data', {}).get('items', [])
+
+            for item in items[:30]:  # 取前30条
+                try:
+                    title = item.get('title', '').strip()
+                    summary = item.get('summary', '').strip()
+                    created_at = item.get('createdAt', '')
+                    site_name = item.get('siteNameDisplay', '')
+
+                    if not title:
+                        continue
+
+                    news_items.append({
+                        'title': title,
+                        'summary': summary or title,  # 如果没有摘要就用标题
+                        'time': created_at,
+                        'source': site_name
+                    })
+
+                except Exception as e:
+                    self.log(f"⚠️  解析新闻项失败: {e}")
+                    continue
+
+            self.log(f"✅ 成功获取 {len(news_items)} 条资讯")
+            return news_items
+
+        except Exception as e:
+            self.log(f"❌ 获取 Readhub 数据失败: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+
+    def filter_news_by_category(self, news_items):
+        """按类别过滤新闻（AI 和新能源汽车）"""
+        if not news_items:
+            return {'ai': [], 'ev': []}
+
+        ai_keywords = [
+            'AI', '人工智能', 'GPT', 'ChatGPT', '大模型', '机器学习', '深度学习',
+            '芯片', '英伟达', 'NVIDIA', '模型', '训练', '推理', '算力',
+            'OpenAI', 'Anthropic', 'Google', 'Gemini', 'Claude', 'Siri',
+            '融资', '投资', '估值', '独角兽'
+        ]
+
+        ev_keywords = [
+            '新能源', '电动车', 'EV', '比亚迪', '特斯拉', 'Tesla',
+            '充电桩', '电池', '续航', '补贴', '销量', '交付',
+            '理想', '蔚来', '小鹏', '小米汽车', '问界', '华为',
+            '年检', '车险', '上市', '发布'
+        ]
+
+        ai_news = []
+        ev_news = []
+
+        for item in news_items:
+            title = item['title'].lower()
+            summary = item['summary'].lower()
+
+            # 检查是否包含关键词
+            ai_match = any(keyword.lower() in title or keyword.lower() in summary for keyword in ai_keywords)
+            ev_match = any(keyword.lower() in title or keyword.lower() in summary for keyword in ev_keywords)
+
+            if ai_match:
+                ai_news.append(item)
+            if ev_match:
+                ev_news.append(item)
+
+        self.log(f"📊 过滤结果: AI {len(ai_news)} 条, 新能源车 {len(ev_news)} 条")
+        return {'ai': ai_news, 'ev': ev_news}
+
+    def generate_script_from_news(self, categorized_news):
+        """从新闻数据生成播客脚本"""
+        self.log("📝 根据新闻数据生成脚本...")
+
+        ai_news = categorized_news.get('ai', [])
+        ev_news = categorized_news.get('ev', [])
+
+        # 如果没有获取到新闻，使用默认脚本
+        if not ai_news and not ev_news:
+            self.log("⚠️  未获取到新闻数据，使用默认脚本")
+            return self.get_default_script()
+
+        # 构建脚本
+        script_parts = []
+
+        # 开场
+        script_parts.append(f"大家好，欢迎收听AI简报，今天是{self.today}。")
+        script_parts.append("今天为大家带来新能源汽车和人工智能两大领域的最新动态。")
+        script_parts.append("")
+
+        # 新能源汽车板块
+        if ev_news:
+            script_parts.append("【新能源汽车领域】")
+            script_parts.append("")
+            script_parts.append("首先是今日速览。")
+
+            for i, news in enumerate(ev_news[:5], 1):
+                script_parts.append(f"第{i}，{news['title']}。{news['summary']}")
+
+            script_parts.append("")
+        else:
+            self.log("⚠️  未获取到新能源汽车相关新闻，使用默认内容")
+            script_parts.append("【新能源汽车领域】")
+            script_parts.append("")
+            script_parts.append("今天暂无重大动态更新。")
+            script_parts.append("")
+
+        # AI 板块
+        if ai_news:
+            script_parts.append("【人工智能领域】")
+            script_parts.append("")
+            script_parts.append("首先是今日速览。")
+
+            for i, news in enumerate(ai_news[:5], 1):
+                script_parts.append(f"第{i}，{news['title']}。{news['summary']}")
+
+            script_parts.append("")
+        else:
+            self.log("⚠️  未获取到AI相关新闻，使用默认内容")
+            script_parts.append("【人工智能领域】")
+            script_parts.append("")
+            script_parts.append("今天暂无重大动态更新。")
+            script_parts.append("")
+
+        # 结尾
+        script_parts.append("以上就是今天AI简报的全部内容，感谢收听，我们下期再见。")
+
+        script = "\n".join(script_parts)
+        self.log(f"✅ 脚本生成完成，长度: {len(script)} 字符")
+
+        return script
 
     def get_default_script(self):
         """获取播客脚本"""
@@ -178,19 +335,32 @@ Anthropic拟筹资250亿美元，将是AI史上最大融资。
         self.log("=" * 60)
 
         try:
-            # 生成播客脚本
-            script = self.get_default_script()
+            # 1. 从 Readhub 获取新闻
+            news_items = self.fetch_readhub_news()
+
+            # 2. 过滤分类新闻
+            categorized_news = None
+            if news_items:
+                categorized_news = self.filter_news_by_category(news_items)
+
+            # 3. 生成播客脚本（如果有新闻数据就用真实数据，否则用默认脚本）
+            if categorized_news:
+                script = self.generate_script_from_news(categorized_news)
+            else:
+                self.log("⚠️  使用默认脚本")
+                script = self.get_default_script()
+
             self.log(f"📝 脚本长度: {len(script)} 字符")
 
-            # 生成播客音频
+            # 4. 生成播客音频
             audio_file = await self.generate_podcast_audio(script)
 
             if audio_file:
-                # 更新HTML链接
+                # 5. 更新HTML链接
                 success = self.update_html_audio_link(audio_file)
 
                 if success:
-                    # 创建最新音频链接
+                    # 6. 创建最新音频链接
                     self.create_latest_audio_link()
 
                     self.log("=" * 60)
