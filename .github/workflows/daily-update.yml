@@ -54,17 +54,4 @@ jobs:
       run: |
         git push
 
-    - name: 上传音频文件（可选）
-      uses: actions/upload-artifact@v3
-      with:
-        name: podcast-audio
-        path: podcasts/ai_brief_*.mp3
-        retention-days: 30
-
-    - name: 创建Release（可选）
-      if: success()
-      run: |
-        TAG="v$(date +'%Y.%m.%d')"
-        gh release create "$TAG" podcasts/ai_brief_*.mp3 --notes "AI简报 - $(date +'%Y年%m月%d日')" --title "AI简报 - $(date +'%Y-%m-%d')"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # 音频文件已自动提交到仓库，无需额外上传

@@ -146,7 +146,12 @@ Anthropic拟筹资250亿美元，将是AI史上最大融资。
             return False
 
     def create_latest_audio_link(self):
-        """创建最新的音频符号链接"""
+        """创建最新的音频符号链接（在GitHub Actions中跳过）"""
+        # 在GitHub Actions环境中跳过符号链接创建
+        if os.environ.get('GITHUB_ACTIONS'):
+            self.log("⏭️  GitHub Actions环境，跳过符号链接创建")
+            return
+
         latest_link = self.podcasts_dir / "ai_brief_latest.mp3"
         current_audio = self.podcasts_dir / f"ai_brief_{self.date_slug}.mp3"
 
@@ -156,8 +161,14 @@ Anthropic拟筹资250亿美元，将是AI史上最大融资。
                 latest_link.unlink()
 
             # 创建新的符号链接
-            latest_link.symlink_to(current_audio.name)
-            self.log(f"✅ 创建最新音频链接: {latest_link}")
+            try:
+                latest_link.symlink_to(current_audio.name)
+                self.log(f"✅ 创建最新音频链接: {latest_link}")
+            except OSError:
+                # Windows可能不支持符号链接，复制文件代替
+                import shutil
+                shutil.copy2(current_audio, latest_link)
+                self.log(f"✅ 复制最新音频: {latest_link}")
 
     async def run(self):
         """执行云端自动更新流程"""
