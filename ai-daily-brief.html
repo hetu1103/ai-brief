@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI简报 - 2026年03月05日</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AI简报 - 2026年03月05日</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -345,322 +346,204 @@
     </style>
 </head>
 <body>
-    <!-- 顶部导航 -->
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">AI简报</div>
-            <div class="date-tag">2026年03月05日</div>
-        </div>
-    </div>
-
-    <div class="container">
-        <!-- 音频播放器 - 置顶 -->
-        <div class="audio-section">
-            <div class="audio-header">
-                <div class="audio-icon">🎙️</div>
-                <div class="audio-title">
-                    <h3>AI简报</h3>
-                    <p>新能源汽车 + 人工智能</p>
-                </div>
-            </div>
-            <audio id="main-audio" controls preload="auto">
-                <source src="podcasts/ai_brief_20260305.mp3" type="audio/mpeg">
+<!-- 顶部导航 -->
+<div class="header">
+<div class="header-content">
+<div class="logo">AI简报</div>
+<div class="date-tag">2026年03月05日</div>
+</div>
+</div>
+<div class="container">
+<!-- 音频播放器 - 置顶 -->
+<div class="audio-section">
+<div class="audio-header">
+<div class="audio-icon">🎙️</div>
+<div class="audio-title">
+<h3>AI简报</h3>
+<p>新能源汽车 + 人工智能</p>
+</div>
+</div>
+<audio controls="" id="main-audio" preload="auto">
+<source src="podcasts/ai_brief_20260305.mp3" type="audio/mpeg"/>
                 您的浏览器不支持音频播放。
             </audio>
-            <div class="audio-actions">
-                <a href="podcasts/ai_brief_20260305.mp3" download="AI简报_20260302.mp3" class="audio-btn primary">
+<div class="audio-actions">
+<a class="audio-btn primary" download="AI简报_20260302.mp3" href="podcasts/ai_brief_20260305.mp3">
                     ⬇️ 下载音频
                 </a>
-                <button onclick="document.getElementById('main-audio').play()" class="audio-btn secondary">
+<button class="audio-btn secondary" onclick="document.getElementById('main-audio').play()">
                     ▶️ 播放
                 </button>
-            </div>
-        </div>
+</div>
+</div>
+<!-- 新能源汽车板块 -->
+<div id="ev-section">
+<!-- 今日速览 -->
+<div class="news-section">
+<div class="section-header">
+<div class="section-title">今日速览</div>
+<div class="section-count">5条</div>
+</div>
 
-        <!-- 新能源汽车板块 -->
-        <div id="ev-section">
-            <!-- 今日速览 -->
-            <div class="news-section">
-                <div class="section-header">
-                    <div class="section-title">今日速览</div>
-                    <div class="section-count">3条</div>
-                </div>
 
-                <div class="news-item">
-                    <div class="news-title">2026年3月新能源车年检新规正式实施：电池衰减超30%不合格</div>
-                    <div class="news-meta">
-                        <span class="news-tag hot">重磅</span>
-                        <span class="news-tag">政策</span>
-                        <span>3月1日生效</span>
-                    </div>
-                    <div class="news-summary">
-                        新能源汽车专属年检规定正式落地，三电系统成为必检项目。这是摆脱燃油车检测模式、量身定制的新能源检测标准。
-                    </div>
-                    <div class="news-insight">
-                        <strong>影响：</strong>电池健康度成为年检硬指标，车主需更加重视电池保养，二手车市场电池评估将更规范。
-                    </div>
-                    <div class="source-link">
-                        来源：<a href="https://m.yoojia.com/article/10297395370205740351.html" target="_blank">有驾</a>
-                    </div>
-                </div>
 
-                <div class="news-item">
-                    <div class="news-title">汽车补贴新政落地：新能源最高补2万元</div>
-                    <div class="news-meta">
-                        <span class="news-tag funding">补贴</span>
-                        <span class="news-tag">以旧换新</span>
-                        <span>全国实施</span>
-                    </div>
-                    <div class="news-summary">
-                        报废旧车购买新能源车最高补贴2万元，置换新能源车型最高补贴1.5万元。多地推出"以旧换新"政策刺激消费。
-                    </div>
-                    <div class="news-insight">
-                        <strong>判断：</strong>补贴政策升级表明政府继续支持新能源消费，但"全额免征购置税"时代已结束，市场从政策驱动向产品驱动转变。
-                    </div>
-                    <div class="source-link">
-                        来源：<a href="https://baijiahao.baidu.com/s?id=1858428309939986927" target="_blank">百家号</a>
-                    </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">3月新车潮来袭：至少10款新能源车排队上市</div>
-                    <div class="news-meta">
-                        <span class="news-tag">新车</span>
-                        <span>奇瑞iCAR V27</span>
-                        <span>问界M6</span>
-                    </div>
-                    <div class="news-summary">
-                        奇瑞iCAR V27（越野）、零跑A10（10万级）、昊铂A800（35万级高端）、问界M6（鸿蒙智行）等重磅车型集中发布。
-                    </div>
-                    <div class="news-insight">
-                        <strong>趋势：</strong>产品覆盖从亲民代步到高端商务全场景，新能源市场竞争进入"价值深耕"新阶段。
-                    </div>
-                    <div class="source-link">
-                        来源：<a href="https://chejiahao.m.autohome.com.cn/info/24875277" target="_blank">车家号</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 市场数据 -->
-            <div class="news-section">
-                <div class="section-header">
-                    <div class="section-title">市场数据</div>
-                    <div class="section-count">2条</div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">2月新能源车销量成绩单：比亚迪19.02万辆领跑</div>
-                    <div class="news-meta">
-                        <span class="news-tag">销量</span>
-                        <span>比亚迪</span>
-                        <span>小米汽车</span>
-                    </div>
-                    <div class="news-summary">
+<div class="news-item"><div class="news-title">蔚来官宣新里程碑：第 200 万台电驱动下线</div><div class="news-meta"><span>界面</span><span>2026-03-05</span></div><div class="news-summary">蔚来公司今晚官宣第 200 万台电驱动在合肥第二电驱动制造工厂下线，这是其电驱动制造新里程碑，该产品为全新 ES8 搭载的后电驱动系统。电驱动是蔚来核心技术全栈重要部分，坚持自研自产，已连续四届获评“世界十佳电驱动系统”，900V 高性能智能旗舰电驱获“中国心”年度十佳称号。2 月蔚来交付新车 20797 台，同比增长 57.6%，累计交付超 104 万台。</div></div><div class="news-item"><div class="news-title">方程豹钛3/钛7 EV闪充版3月5日亮相：将搭载比亚迪闪充技术</div><div class="news-meta"><span>快科技</span><span>2026-03-05</span></div><div class="news-summary">比亚迪第二代刀片电池暨闪充技术发布会定于3月5日19:00在深圳大运中心体育馆举办。方程豹全新钛3闪充版、钛7 EV闪充版将亮相，两款车均搭载最新闪充技术和第二代刀片电池，这是方程豹首次推出搭载闪充技术的车型。钛3闪充版续航提升，现款售价13.38 - 17.78万元。钛7 EV闪充版已完成工信部申报，有单、双电机版本，标配全景天幕等，现款插混版售价17.98 - 21.98万元。此外，比亚迪大唐</div></div><div class="news-item"><div class="news-title">理想汽车将在今年发布一款双轮机器人</div><div class="news-meta"><span>钛媒体</span><span>2026-03-05</span></div><div class="news-summary">理想汽车计划2025年发布一款用于工厂制造场景的双轮机器人，其人形机器人团队代号Nexus，负责人为何俊培，团队不到30人，该项目为内部一级保密。团队规划两款产品，即双轮和双足机器人，目前双轮机器人产品已准备好，理想状态下今年年中发布。</div></div><div class="news-item"><div class="news-title">璞泰来：2025年净利润同比增长98.14% 拟10派2.3元</div><div class="news-meta"><span>界面</span><span>2026-03-05</span></div><div class="news-summary">璞泰来(603659.SH)发布2025年年度报告，公司实现营业收入157.11亿元，同比增长16.83%。归母净利润23.59亿元，同比增长98.14%。公司拟向全体股东每10股派发现金红利2.3元（含税），不送红股，不以公积金转增股本。</div></div><div class="news-item"><div class="news-title">以军对黎巴嫩贝鲁特南郊居民发布撤离警告</div><div class="news-meta"><span>界面</span><span>2026-03-05</span></div><div class="news-summary">以色列国防军发布紧急警告，要求黎巴嫩贝鲁特南部郊区居民立即撤离家园，禁止居民向南行进，称任何向南的行动都可能危及性命。</div></div></div>
+<!-- 市场数据 -->
+<div class="news-section">
+<div class="section-header">
+<div class="section-title">市场数据</div>
+<div class="section-count">2条</div>
+</div>
+<div class="news-item">
+<div class="news-title">2月新能源车销量成绩单：比亚迪19.02万辆领跑</div>
+<div class="news-meta">
+<span class="news-tag">销量</span>
+<span>比亚迪</span>
+<span>小米汽车</span>
+</div>
+<div class="news-summary">
                         比亚迪19.02万辆、小米汽车超2万辆、理想汽车约2.6万台。零跑、蔚来、理想均实现同比增长。
                     </div>
-                    <div class="news-insight">
-                        <strong>观察：</strong>小米汽车交付量突破2万辆标志着新玩家站稳脚跟，头部效应加剧。
+<div class="news-insight">
+<strong>观察：</strong>小米汽车交付量突破2万辆标志着新玩家站稳脚跟，头部效应加剧。
                     </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">招银国际：首两月新能源车销售弱于预期</div>
-                    <div class="news-meta">
-                        <span class="news-tag">机构观点</span>
-                        <span>招银国际</span>
-                    </div>
-                    <div class="news-summary">
+</div>
+<div class="news-item">
+<div class="news-title">招银国际：首两月新能源车销售弱于预期</div>
+<div class="news-meta">
+<span class="news-tag">机构观点</span>
+<span>招银国际</span>
+</div>
+<div class="news-summary">
                         预计3月开始市场份额反弹。理想、蔚来符合预期，小鹏不及预期。
                     </div>
-                    <div class="news-insight">
-                        <strong>观点：</strong>短期压力不改长期趋势，3月新车潮和降价潮将刺激需求回暖。
+<div class="news-insight">
+<strong>观点：</strong>短期压力不改长期趋势，3月新车潮和降价潮将刺激需求回暖。
                     </div>
-                </div>
-            </div>
-
-            <!-- 政策动态 -->
-            <div class="news-section">
-                <div class="section-header">
-                    <div class="section-title">政策动态</div>
-                    <div class="section-count">2条</div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">充电电价市场化改革：3月1日起九省市试点</div>
-                    <div class="news-meta">
-                        <span class="news-tag hot">政策</span>
-                        <span>充电</span>
-                        <span>重庆、辽宁等</span>
-                    </div>
-                    <div class="news-summary">
+</div>
+</div>
+<!-- 政策动态 -->
+<div class="news-section">
+<div class="section-header">
+<div class="section-title">政策动态</div>
+<div class="section-count">2条</div>
+</div>
+<div class="news-item">
+<div class="news-title">充电电价市场化改革：3月1日起九省市试点</div>
+<div class="news-meta">
+<span class="news-tag hot">政策</span>
+<span>充电</span>
+<span>重庆、辽宁等</span>
+</div>
+<div class="news-summary">
                         取消政府核定固定分时电价，转向市场化浮动定价。公共充电桩电价随电力市场供需实时浮动。
                     </div>
-                    <div class="news-insight">
-                        <strong>影响：</strong>充电成本将更灵活，高峰期充电可能涨价，用户需优化充电时间。家用电价不受影响。
+<div class="news-insight">
+<strong>影响：</strong>充电成本将更灵活，高峰期充电可能涨价，用户需优化充电时间。家用电价不受影响。
                     </div>
-                    <div class="source-link">
+<div class="source-link">
                         来源：<a href="https://m.yoojia.com/article/9614734331591366978.html" target="_blank">有驾</a>
-                    </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">辟谣：10省市试点开征新能源汽车里程税消息不实</div>
-                    <div class="news-meta">
-                        <span class="news-tag">辟谣</span>
-                        <span>税务部门</span>
-                    </div>
-                    <div class="news-summary">
+</div>
+</div>
+<div class="news-item">
+<div class="news-title">辟谣：10省市试点开征新能源汽车里程税消息不实</div>
+<div class="news-meta">
+<span class="news-tag">辟谣</span>
+<span>税务部门</span>
+</div>
+<div class="news-summary">
                         网传"10省市自2026年03月05日起试点开征新能源汽车里程税"为虚假消息。重庆、四川等多地税务部门表示未收到相关通知。
                     </div>
-                    <div class="news-insight">
-                        <strong>判断：</strong>里程税传闻不实，政府继续支持新能源发展，但补贴方式从"普惠"转向"精准"。
+<div class="news-insight">
+<strong>判断：</strong>里程税传闻不实，政府继续支持新能源发展，但补贴方式从"普惠"转向"精准"。
                     </div>
-                </div>
-            </div>
-        </div>
+</div>
+</div>
+</div>
+<!-- 人工智能板块 -->
+<div id="ai-section">
+<!-- 今日速览 -->
+<div class="news-section">
+<div class="section-header">
+<div class="section-title">今日速览</div>
+<div class="section-count">2条</div>
+</div>
 
-        <!-- 人工智能板块 -->
-        <div id="ai-section">
-            <!-- 今日速览 -->
-            <div class="news-section">
-                <div class="section-header">
-                    <div class="section-title">今日速览</div>
-                    <div class="section-count">3条</div>
-                </div>
 
-                <div class="news-item">
-                    <div class="news-title">英伟达3月15日发布"世界前所未见"的革命性AI芯片</div>
-                    <div class="news-meta">
-                        <span class="news-tag hot">重磅</span>
-                        <span class="news-tag">产品</span>
-                        <span>GTC 2026</span>
-                    </div>
-                    <div class="news-summary">
-                        黄仁勋将在GTC 2026大会上发布整合Groq技术的全新AI芯片，针对GPU推理任务效率问题提供突破性解决方案。
-                    </div>
-                    <div class="news-insight">
-                        <strong>影响：</strong>这可能是Rubin CPX或Feynman革命性架构，在SRAM集成、3D堆叠、近存计算、能效比上将实现跨代跃升，被视为2026年科技股的重要催化剂。
-                    </div>
-                    <div class="source-link">
-                        来源：<a href="https://new.qq.com/rain/a/20260219A038MT00" target="_blank">腾讯新闻</a>
-                    </div>
-                </div>
 
-                <div class="news-item">
-                    <div class="news-title">苹果2026年3月推出新一代Siri：深度整合Google Gemini</div>
-                    <div class="news-meta">
-                        <span class="news-tag hot">重磅</span>
-                        <span class="news-tag">产品</span>
-                        <span>Apple</span>
-                    </div>
-                    <div class="news-summary">
-                        苹果计划在2026年3月同时推出新一代Siri助手和自研AI搜索产品（内部称"问答引擎"）。Gemini模型将在苹果私有云环境中运行。
-                    </div>
-                    <div class="news-insight">
-                        <strong>策略转变：</strong>苹果选择在私有云环境中运行外部模型，保持界面风格的同时整合顶尖AI能力。这种"混合策略"可能成为硬件厂商的新范式。
-                    </div>
-                    <div class="source-link">
-                        来源：<a href="https://ishare.ifeng.com/c/s/v002caenLyEbsNu1IE01wVrBrt0SJP7rVx8ubx-_eJBnn9us__" target="_blank">凤凰网</a>
-                    </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">AI融资进入寡头时代：前7周17家公司融资540亿美元</div>
-                    <div class="news-meta">
-                        <span class="news-tag funding">融资</span>
-                        <span class="news-tag">趋势</span>
-                        <span>2026年Q1</span>
-                    </div>
-                    <div class="news-summary">
-                        2026年前7周，17家美国AI公司完成单笔1亿美元以上融资，合计吸金540亿美元。Anthropic完成300亿美元G轮，估值3800亿美元。
-                    </div>
-                    <div class="news-insight">
-                        <strong>市场警示：</strong>"赢家通吃"格局已形成——训练顶级模型成本超1亿美元，顶尖AI研究员年薪超500万美元，小玩家的入场壁垒已变得不可逾越。
-                    </div>
-                    <div class="source-link">
-                        来源：<a href="https://www.linkedin.com/posts/ryan-jones-037bb8111_ai-funding-in-2026-isnt-cooling-off-17-activity-7430271621187268608-A7zi" target="_blank">LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 大佬观点 -->
-            <div class="news-section">
-                <div class="section-header">
-                    <div class="section-title">大佬观点</div>
-                    <div class="section-count">2条</div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">黄仁勋：AI芯片技术逼近物理极限，需要架构革命</div>
-                    <div class="news-meta">
-                        <span class="news-tag">英伟达CEO</span>
-                        <span>技术判断</span>
-                    </div>
-                    <div class="news-summary">
+<div class="news-item"><div class="news-title">美国第四季度生产率增幅超预期 凸显企业通过提升效率来控制成本</div><div class="news-meta"><span>格隆汇</span></div><div class="news-summary">美国第四季度劳动生产率增幅超市场预期，环比折年率增长2.8%，第三季度增幅上修至5.2%，经济学家预测为增长1.9%。近期效率提升有助于抑制工资压力，印证劳动力市场不再是通胀来源。企业通过引入新技术和设备提高员工效率，对AI等技术的投入使部分企业以更精简人手运营，导致去年招聘偏弱。第四季度单位劳动力成本上升2.8%，去年年底经济增长放缓受政府停摆影响，企业投资仍稳健增长。2025年全年生产率增长2</div></div><div class="news-item"><div class="news-title">德国默克集团：将对中国市场加大投入</div><div class="news-meta"><span>界面</span></div><div class="news-summary">德国默克集团董事会主席兼首席执行官葛丽鹤接受采访时表示，默克始终高度重视中国市场，计划加大对华投资，正积极寻求与中国企业合作机会，认为中国企业研发新药和新技术能惠及全球，对中国经济增长前景充满信心，视中国为首选合作伙伴。</div></div></div>
+<!-- 大佬观点 -->
+<div class="news-section">
+<div class="section-header">
+<div class="section-title">大佬观点</div>
+<div class="section-count">2条</div>
+</div>
+<div class="news-item">
+<div class="news-title">黄仁勋：AI芯片技术逼近物理极限，需要架构革命</div>
+<div class="news-meta">
+<span class="news-tag">英伟达CEO</span>
+<span>技术判断</span>
+</div>
+<div class="news-summary">
                         "3月发布的芯片是世界前所未见的，我们正在接近技术极限，需要全新的架构思路。"通过整合Groq的LPU技术，在推理效率上实现数量级提升。
                     </div>
-                    <div class="news-insight">
-                        <strong>行业影响：</strong>这标志着AI硬件从"暴力计算"向"智能推理"的范式转移，专用的推理芯片可能成为新的主流。
+<div class="news-insight">
+<strong>行业影响：</strong>这标志着AI硬件从"暴力计算"向"智能推理"的范式转移，专用的推理芯片可能成为新的主流。
                     </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">2026 AI年度展望：十条核心趋势判断</div>
-                    <div class="news-meta">
-                        <span class="news-tag">行业共识</span>
-                        <span>智能涌现</span>
-                    </div>
-                    <div class="news-summary">
+</div>
+<div class="news-item">
+<div class="news-title">2026 AI年度展望：十条核心趋势判断</div>
+<div class="news-meta">
+<span class="news-tag">行业共识</span>
+<span>智能涌现</span>
+</div>
+<div class="news-summary">
                         字节跳动追击AI第一梯队；豆包早期确认多模态为核心能力；AI入口的最佳形态尚未确定；2026年将是AI商业化落地的关键年。
                     </div>
-                    <div class="news-insight">
-                        <strong>核心判断：</strong>从"技术秀肌肉"转向"场景深扎根"，有真实商业价值的公司将脱颖而出。
+<div class="news-insight">
+<strong>核心判断：</strong>从"技术秀肌肉"转向"场景深扎根"，有真实商业价值的公司将脱颖而出。
                     </div>
-                    <div class="source-link">
+<div class="source-link">
                         来源：<a href="https://m.163.com/dy/article/KL6PDAG105568W0A.html" target="_blank">网易新闻</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 投融资 -->
-            <div class="news-section">
-                <div class="section-header">
-                    <div class="section-title">投融资</div>
-                    <div class="section-count">2条</div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">Anthropic拟筹资250亿美元：AI史上最大融资</div>
-                    <div class="news-meta">
-                        <span class="news-tag funding">巨额融资</span>
-                        <span>大模型</span>
-                    </div>
-                    <div class="news-summary">
+</div>
+</div>
+</div>
+<!-- 投融资 -->
+<div class="news-section">
+<div class="section-header">
+<div class="section-title">投融资</div>
+<div class="section-count">2条</div>
+</div>
+<div class="news-item">
+<div class="news-title">Anthropic拟筹资250亿美元：AI史上最大融资</div>
+<div class="news-meta">
+<span class="news-tag funding">巨额融资</span>
+<span>大模型</span>
+</div>
+<div class="news-summary">
                         目标金额250亿美元或更多，当前估值约3800亿美元，年收入超25亿美元（自2026年初已翻倍）。
                     </div>
-                    <div class="news-insight">
-                        <strong>行业影响：</strong>如果融资完成，将是AI史上最大单笔融资，进一步加剧"寡头化"趋势。顶级VC如Sequoia、General Atlantic正在积极布局。
+<div class="news-insight">
+<strong>行业影响：</strong>如果融资完成，将是AI史上最大单笔融资，进一步加剧"寡头化"趋势。顶级VC如Sequoia、General Atlantic正在积极布局。
                     </div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-title">2026年1月：9家新AI独角兽诞生</div>
-                    <div class="news-meta">
-                        <span class="news-tag funding">独角兽</span>
-                        <span>美国市场</span>
-                    </div>
-                    <div class="news-summary">
+</div>
+<div class="news-item">
+<div class="news-title">2026年1月：9家新AI独角兽诞生</div>
+<div class="news-meta">
+<span class="news-tag funding">独角兽</span>
+<span>美国市场</span>
+</div>
+<div class="news-summary">
                         9家新独角兽（8家在美国），总估值224亿美元，融资总额近30亿美元。多数处于种子轮或A轮，但融资金额空前。
                     </div>
-                    <div class="news-insight">
-                        <strong>地域分布：</strong>硅谷仍是创新核心，中国2026年1月前10大交易约100亿人民币，但尚未诞生新独角兽。
+<div class="news-insight">
+<strong>地域分布：</strong>硅谷仍是创新核心，中国2026年1月前10大交易约100亿人民币，但尚未诞生新独角兽。
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
+</div>
+</div>
+</div>
+</div>
+<script>
         // 页面已简化，移除切换功能
     </script>
 </body>

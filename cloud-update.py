@@ -267,9 +267,9 @@ Anthropic拟筹资250亿美元，将是AI史上最大融资。
             traceback.print_exc()
             return None
 
-    def update_html_audio_link(self, audio_file):
-        """更新HTML中的音频链接"""
-        self.log("📄 更新HTML音频链接...")
+    def update_html_audio_link(self, audio_file, categorized_news=None):
+        """更新HTML中的音频链接和新闻内容"""
+        self.log("📄 更新HTML内容...")
 
         html_file = self.base_dir / "ai-daily-brief.html"
 
@@ -286,9 +286,111 @@ Anthropic拟筹资250亿美元，将是AI史上最大融资。
             new_link = f'podcasts/ai_brief_{self.date_slug}.mp3'
             content = re.sub(pattern, new_link, content)
 
-            # 更新日期
+            # 更新日期（标题中的日期）
             old_date_pattern = r'\d{4}年\d{1,2}月\d{1,2}日'
             content = re.sub(old_date_pattern, self.today, content)
+
+            # 如果有新闻数据，更新新闻内容
+            if categorized_news:
+                self.log("📰 更新新闻内容...")
+                soup = BeautifulSoup(content, 'html.parser')
+
+                # 更新新能源汽车板块新闻
+                ev_news = categorized_news.get('ev', [])
+                if ev_news:
+                    ev_container = soup.find('div', id='ev-section')
+                    if ev_container:
+                        # 找到第一个 news-section（今日速览）
+                        ev_section = ev_container.find('div', class_='news-section')
+                        if ev_section:
+                            # 移除旧的新闻项
+                            for old_item in ev_section.find_all('div', class_='news-item'):
+                                old_item.decompose()
+
+                            # 更新新闻数量
+                            section_header = ev_section.find('div', class_='section-header')
+                            if section_header:
+                                count_elem = section_header.find('div', class_='section-count')
+                                if count_elem:
+                                    count_elem.string = f'{len(ev_news)}条'
+
+                            # 插入新新闻
+                            for news in ev_news[:5]:  # 最多5条
+                                news_item = soup.new_tag('div', **{'class': 'news-item'})
+
+                                # 标题
+                                title_div = soup.new_tag('div', **{'class': 'news-title'})
+                                title_div.string = news['title']
+                                news_item.append(title_div)
+
+                                # 元信息
+                                meta_div = soup.new_tag('div', **{'class': 'news-meta'})
+                                if news.get('source'):
+                                    source_span = soup.new_tag('span')
+                                    source_span.string = news['source']
+                                    meta_div.append(source_span)
+
+                                if news.get('time'):
+                                    time_str = news['time'][:10] if len(news['time']) > 10 else news['time']
+                                    time_span = soup.new_tag('span')
+                                    time_span.string = time_str
+                                    meta_div.append(time_span)
+
+                                news_item.append(meta_div)
+
+                                # 摘要
+                                summary_div = soup.new_tag('div', **{'class': 'news-summary'})
+                                summary_text = news.get('summary', news['title'])[:200]
+                                summary_div.string = summary_text
+                                news_item.append(summary_div)
+
+                                # 插入到section中
+                                ev_section.append(news_item)
+                            self.log(f"✅ 更新新能源车新闻 {len(ev_news)} 条")
+
+                # 更新AI板块新闻
+                ai_news = categorized_news.get('ai', [])
+                if ai_news:
+                    ai_container = soup.find('div', id='ai-section')
+                    if ai_container:
+                        # 找到第一个 news-section（今日速览）
+                        ai_section = ai_container.find('div', class_='news-section')
+                        if ai_section:
+                            # 移除旧的新闻项
+                            for old_item in ai_section.find_all('div', class_='news-item'):
+                                old_item.decompose()
+
+                            # 更新新闻数量
+                            section_header = ai_section.find('div', class_='section-header')
+                            if section_header:
+                                count_elem = section_header.find('div', class_='section-count')
+                                if count_elem:
+                                    count_elem.string = f'{len(ai_news)}条'
+
+                            for news in ai_news[:5]:
+                                news_item = soup.new_tag('div', **{'class': 'news-item'})
+
+                                title_div = soup.new_tag('div', **{'class': 'news-title'})
+                                title_div.string = news['title']
+                                news_item.append(title_div)
+
+                                meta_div = soup.new_tag('div', **{'class': 'news-meta'})
+                                if news.get('source'):
+                                    source_span = soup.new_tag('span')
+                                    source_span.string = news['source']
+                                    meta_div.append(source_span)
+                                news_item.append(meta_div)
+
+                                summary_div = soup.new_tag('div', **{'class': 'news-summary'})
+                                summary_text = news.get('summary', news['title'])[:200]
+                                summary_div.string = summary_text
+                                news_item.append(summary_div)
+
+                                ai_section.append(news_item)
+                            self.log(f"✅ 更新AI新闻 {len(ai_news)} 条")
+
+                # 更新内容
+                content = str(soup)
 
             with open(html_file, 'w', encoding='utf-8') as f:
                 f.write(content)
@@ -356,8 +458,8 @@ Anthropic拟筹资250亿美元，将是AI史上最大融资。
             audio_file = await self.generate_podcast_audio(script)
 
             if audio_file:
-                # 5. 更新HTML链接
-                success = self.update_html_audio_link(audio_file)
+                # 5. 更新HTML链接和新闻内容
+                success = self.update_html_audio_link(audio_file, categorized_news)
 
                 if success:
                     # 6. 创建最新音频链接
